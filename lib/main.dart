@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
   final List<GameItem> games = [
     GameItem(title: 'Mobile Legends', category: 'MOBA', icon: Icons.sports_esports),
     GameItem(title: 'Free Fire', category: 'Battle Royale', icon: Icons.local_fire_department),
-    GameItem(title: 'PUBG Mobile', category: 'Battle Royale', icon: Icons.crosshairs),
+    GameItem(title: 'PUBG Mobile', category: 'Battle Royale', icon: Icons.gps_fixed),
     GameItem(title: 'Genshin Impact', category: 'RPG', icon: Icons.auto_awesome),
     GameItem(title: 'Valorant', category: 'FPS', icon: Icons.bolt),
     GameItem(title: 'Honor of Kings', category: 'MOBA', icon: Icons.shield),
