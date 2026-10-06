@@ -1,121 +1,305 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TopUpGameApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TopUpGameApp extends StatelessWidget {
+  const TopUpGameApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'GameZone Top Up',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+class GameItem {
   final String title;
+  final String category;
+  final IconData icon;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  GameItem({required this.title, required this.category, required this.icon});
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<GameItem> games = [
+    GameItem(title: 'Mobile Legends', category: 'MOBA', icon: Icons.sports_esports),
+    GameItem(title: 'Free Fire', category: 'Battle Royale', icon: Icons.local_fire_department),
+    GameItem(title: 'PUBG Mobile', category: 'Battle Royale', icon: Icons.crosshairs),
+    GameItem(title: 'Genshin Impact', category: 'RPG', icon: Icons.auto_awesome),
+    GameItem(title: 'Valorant', category: 'FPS', icon: Icons.bolt),
+    GameItem(title: 'Honor of Kings', category: 'MOBA', icon: Icons.shield),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text('🎮 GameZone Top Up', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {},
+            tooltip: 'Riwayat Transaksi',
+          ),
+        ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            // Banner Promo
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Colors.deepPurple, Colors.blueAccent],
+                ),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'PROMO MINGGU INI!',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Top up game favoritmu dan dapatkan cashback hingga 30%.',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            const Text(
+              'Pilih Game',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            // Grid Daftar Game
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 1,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
+              itemCount: games.length,
+              itemBuilder: (context, index) {
+                final game = games[index];
+                return Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TopUpDetailPage(game: game),
+                        ),
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 28,
+                          backgroundColor: Colors.deepPurple.shade300,
+                          child: Icon(game.icon, size: 32, color: Colors.white),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          game.title,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          game.category,
+                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+// Halaman Formulir Top Up
+class TopUpDetailPage extends StatefulWidget {
+  final GameItem game;
+
+  const TopUpDetailPage({super.key, required this.game});
+
+  @override
+  State<TopUpDetailPage> createState() => _TopUpDetailPageState();
+}
+
+class _TopUpDetailPageState extends State<TopUpDetailPage> {
+  final _userIdController = TextEditingController();
+  String? selectedNominal;
+  String? selectedPayment;
+
+  final List<String> nominalList = [
+    '50 Diamonds / Cash',
+    '150 Diamonds / Cash',
+    '300 Diamonds / Cash',
+    '500 Diamonds / Cash',
+    '1000 Diamonds / Cash',
+  ];
+
+  final List<String> paymentList = ['QRIS / BRImo', 'E-Wallet (Gopay/OVO)', 'Transfer Bank'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Top Up ${widget.game.title}'),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Step 1: User ID
+            const Text('1. Masukkan User ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _userIdController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Contoh: 12345678 (1234)',
+                prefixIcon: Icon(Icons.person),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Step 2: Pilih Nominal
+            const Text('2. Pilih Nominal', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: nominalList.map((nominal) {
+                final isSelected = selectedNominal == nominal;
+                return ChoiceChip(
+                  label: Text(nominal),
+                  selected: isSelected,
+                  onSelected: (selected) {
+                    setState(() {
+                      selectedNominal = selected ? nominal : null;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 20),
+
+            // Step 3: Metode Pembayaran
+            const Text('3. Pilih Metode Pembayaran', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(height: 8),
+            Column(
+              children: paymentList.map((payment) {
+                return RadioListTile<String>(
+                  title: Text(payment),
+                  value: payment,
+                  groupValue: selectedPayment,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedPayment = value;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 24),
+
+            // Tombol Beli
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () {
+                  if (_userIdController.text.isEmpty || selectedNominal == null || selectedPayment == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Harap lengkapi semua data transaksi!')),
+                    );
+                    return;
+                  }
+
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Konfirmasi Pembelian'),
+                      content: Text(
+                        'Game: ${widget.game.title}\n'
+                        'ID: ${_userIdController.text}\n'
+                        'Nominal: $selectedNominal\n'
+                        'Metode: $selectedPayment',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Batal'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Pesanan Berhasil Dibuat!')),
+                            );
+                          },
+                          child: const Text('Bayar Sekarang'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: const Text(
+                  'BAYAR SEKARANG',
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
